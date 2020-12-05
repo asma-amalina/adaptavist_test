@@ -1,0 +1,35 @@
+import com.atlassian.jira.component.ComponentAccessor
+import com.atlassian.jira.event.issue.IssueEvent
+import com.atlassian.jira.event.type.EventDispatchOption
+import com.atlassian.jira.issue.IssueManager
+import com.atlassian.jira.issue.MutableIssue
+import com.atlassian.jira.security.JiraAuthenticationContext
+import com.atlassian.jira.user.ApplicationUser
+import groovy.transform.Field
+import com.atlassian.jira.util.ImportUtils
+import com.atlassian.jira.issue.index.IssueIndexingService
+import com.atlassian.jira.issue.ModifiedValue
+import com.atlassian.jira.issue.util.DefaultIssueChangeHolder
+
+IssueEvent event = event as IssueEvent;
+JiraAuthenticationContext authContext = ComponentAccessor.getJiraAuthenticationContext();
+ApplicationUser appUser = authContext.getLoggedInUser();
+ComponentAccessor componentAccessor = new ComponentAccessor();
+IssueManager issueManager = componentAccessor.getIssueManager();
+MutableIssue issue = event.getIssue() as MutableIssue;
+def issueIndexingService = componentAccessor.getComponent(IssueIndexingService);
+
+def commentManager = ComponentAccessor.commentManager
+def comment = commentManager.getLastComment(issue)
+
+if (comment){
+	issue.setDescription(comment.getBody());
+}else{
+    issue.setDescription("");
+}
+
+issueManager.updateIssue(appUser, issue, EventDispatchOption.ISSUE_UPDATED, false);
+boolean wasIndexing = ImportUtils.isIndexIssues();
+ImportUtils.setIndexIssues(true);
+issueIndexingService.reIndex(issueManager.getIssueObject(issue.id));
+ImportUtils.setIndexIssues(wasIndexing);
