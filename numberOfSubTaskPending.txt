@@ -1,0 +1,13 @@
+//to calculate the pending task (to do + in progress)
+import com.atlassian.jira.component.ComponentAccessor
+
+def CustomFieldManager = ComponentAccessor.getCustomFieldManager()
+def toDoTask = CustomFieldManager.getCustomFieldObjectByName("Total sub-task (To Do)")
+def inProgressTask = CustomFieldManager.getCustomFieldObjectByName("Total sub-task (In Progress)")
+
+
+def toDoTaskTotal = issue.getCustomFieldValue(toDoTask) ?: 0
+def inProgressTaskTotal = issue.getCustomFieldValue(inProgressTask) ?: 0
+int totalPending = (int) toDoTaskTotal + (int) inProgressTaskTotal
+
+return totalPending

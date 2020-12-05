@@ -1,0 +1,11 @@
+//Calculate the number of subtask base on status name - to do
+def subTasks = issue.getSubTaskObjects()
+def subtask_name = []
+def i = 0
+
+subTasks?.each { it ->
+    if ( it.getStatus().name == "To Do"){
+        i++		
+    }
+}
+return i

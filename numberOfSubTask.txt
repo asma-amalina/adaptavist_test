@@ -1,0 +1,8 @@
+//to calculate number of subtask in issue
+if (! issue.isSubTask()) {
+    def sum_sub_task = 0
+    issue.getSubTaskObjects()?.each {
+            sum_sub_task++
+    }
+    return sum_sub_task
+}
