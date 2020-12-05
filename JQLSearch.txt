@@ -1,0 +1,32 @@
+import com.atlassian.jira.component.ComponentAccessor
+import com.atlassian.jira.bc.issue.search.SearchService
+import com.atlassian.jira.jql.parser.JqlQueryParser
+import com.atlassian.jira.web.bean.PagerFilter
+
+import org.apache.log4j.Level
+import org.apache.log4j.Logger
+log.setLevel(Level.DEBUG) //setting use log level to use log.debug. https://scriptrunner.adaptavist.com/5.3.9/jira/recipes/misc/log-to-SR-file.html
+
+def jqlQueryParser = ComponentAccessor.getComponent(JqlQueryParser)
+def searchService = ComponentAccessor.getComponent(SearchService)
+def issueManager = ComponentAccessor.getIssueManager()
+def user = ComponentAccessor.getJiraAuthenticationContext().getLoggedInUser() // update to getLoggedInUser() for latest version https://docs.atlassian.com/software/jira/docs/api/7.0.6/com/atlassian/jira/security/JiraAuthenticationContext.html
+
+// edit this query to suit
+def query = jqlQueryParser.parseQuery("") // remove filter to get all issue in Jira
+//def query = jqlQueryParser.parseQuery("project = ATP") // eg: to get all issue by project
+// refer to this page for more info https://scriptrunner.adaptavist.com/latest/jira/jql-functions.html
+
+def search = searchService.search(user, query, PagerFilter.getUnlimitedFilter())
+
+log.debug("Total issues: ${search.total}") 
+
+search.results.each {documentIssue ->
+    log.debug(documentIssue.key)
+
+    // if you need a mutable issue you can do:
+    def issue = issueManager.getIssueObject(documentIssue.id)
+
+    // do something to the issue...
+    log.debug(issue.summary)
+}
