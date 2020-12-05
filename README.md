@@ -1,5 +1,5 @@
 # adaptavist_test
-
+*****************************************************************************************************
 Task 1 - ScriptRunner & Jira
 
 Question 1:
@@ -21,6 +21,7 @@ comment
 Script:setDescriptionListener.txt
 Events: Issue Commented, Issue Comment Edited, Issue Comment Deleted
 
+*****************************************************************************************************
 Task 2 - ScriptRunner Support Question:
 
 Script: JQLSearch.txt
