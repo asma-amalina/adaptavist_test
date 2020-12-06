@@ -20,6 +20,7 @@ A custom listener script that updates the issue description with the issue last
 comment
 Script:
 1) setDescriptionListener.txt
+
 Events: 
 1) Issue Commented
 2) Issue Comment Edited
