@@ -18,8 +18,12 @@ Script:
 Question 3:
 A custom listener script that updates the issue description with the issue last
 comment
-Script:setDescriptionListener.txt
-Events: Issue Commented, Issue Comment Edited, Issue Comment Deleted
+Script:
+1) setDescriptionListener.txt
+Events: 
+1) Issue Commented
+2) Issue Comment Edited
+3) Issue Comment Deleted
 
 *****************************************************************************************************
 Task 2 - ScriptRunner Support Question:
