@@ -34,7 +34,7 @@ Task 2 - ScriptRunner Support Question:
 
 Script: JQLSearch.txt
 
-Full email template in the (filename:EmailTemplate - Asma Amalina.docx) attached in email
+Full email template in https://drive.google.com/file/d/1Hc88-w954_f1qSaC_1egwTabYEu_gid6/view?usp=sharing
 
 
 

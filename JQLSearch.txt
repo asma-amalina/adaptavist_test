@@ -5,7 +5,7 @@ import com.atlassian.jira.web.bean.PagerFilter
 
 import org.apache.log4j.Level
 import org.apache.log4j.Logger
-log.setLevel(Level.DEBUG) //setting use log level to use log.debug. https://scriptrunner.adaptavist.com/5.3.9/jira/recipes/misc/log-to-SR-file.html
+log.setLevel(Level.DEBUG) //setting log level to use log.debug. For more information visit: https://scriptrunner.adaptavist.com/5.3.9/jira/recipes/misc/log-to-SR-file.html
 
 def jqlQueryParser = ComponentAccessor.getComponent(JqlQueryParser)
 def searchService = ComponentAccessor.getComponent(SearchService)
@@ -21,6 +21,7 @@ def search = searchService.search(user, query, PagerFilter.getUnlimitedFilter())
 
 log.debug("Total issues: ${search.total}") 
 
+//loop through each issue found from the search result
 search.results.each {documentIssue ->
     log.debug(documentIssue.key)
 
